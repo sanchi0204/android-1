@@ -33,7 +33,7 @@ class SharedPreferencesProviderImpl(
     private val editor = sharedPreferences.edit()
 
     override fun putString(key: String, value: String) = editor.putString(key, value).apply()
-    override fun getString(key: String, defaultValue: String) = sharedPreferences.getString(key, defaultValue)
+    override fun getString(key: String, defaultValue: String?) = sharedPreferences.getString(key, defaultValue)
 
     override fun putInt(key: String, value: Int) = editor.putInt(key, value).apply()
     override fun getInt(key: String, defaultValue: Int) = sharedPreferences.getInt(key, defaultValue)

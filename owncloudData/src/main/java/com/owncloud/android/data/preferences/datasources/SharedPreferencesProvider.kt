@@ -22,7 +22,7 @@ package com.owncloud.android.data.preferences.datasources
 interface SharedPreferencesProvider {
 
     fun putString(key: String, value: String)
-    fun getString(key: String, defaultValue: String): String?
+    fun getString(key: String, defaultValue: String?): String?
 
     fun putInt(key: String, value: Int)
     fun getInt(key: String, defaultValue: Int): Int
