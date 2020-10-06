@@ -19,6 +19,7 @@
 
 package com.owncloud.android.settings.logs
 
+import android.preference.CheckBoxPreference
 import android.preference.PreferenceCategory
 import android.preference.PreferenceScreen
 import androidx.test.espresso.Espresso.onView
@@ -35,6 +36,7 @@ import com.owncloud.android.R
 import com.owncloud.android.ui.activity.LogHistoryActivity
 import com.owncloud.android.ui.activity.Preferences
 import org.junit.After
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -44,6 +46,7 @@ class OCSettingsLogsTest {
     @Rule
     @JvmField
     var activityRule = ActivityTestRule(Preferences::class.java, true, true)
+    private lateinit var prefHttpLogs: CheckBoxPreference
 
     @Before
     fun setUp() {
@@ -51,6 +54,8 @@ class OCSettingsLogsTest {
         //Only interested in "More" section, so we can get rid of the other categories. SmoothScroll is not
         //working fine to reach the bottom of the screen, so this approach was taken to display the section
         val preferenceScreen = activityRule.activity.preferenceScreen as PreferenceScreen
+        prefHttpLogs = activityRule.activity.findPreference("set_httpLogs") as CheckBoxPreference
+
         val cameraUploadsCategory =
             activityRule.activity.findPreference("camera_uploads_category") as PreferenceCategory
         val securityCategory =
@@ -70,6 +75,13 @@ class OCSettingsLogsTest {
     @Test
     fun loggerView() {
         onView(withText(R.string.log_open_logs_view)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun enableHttpLogs() {
+        onView(withText(R.string.prefs_http_logs)).perform(click())
+        //Asserts
+        Assert.assertTrue(prefHttpLogs.isChecked)
     }
 
     @Test
